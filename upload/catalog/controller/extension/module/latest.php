@@ -17,16 +17,7 @@ class ControllerExtensionModuleLatest extends Controller {
 
 		$data['products'] = array();
 
-		$filter_data = array(
-			'sort'  => 'p.date_added',
-			'order' => 'DESC',
-			'start' => 0,
-			'limit' => $setting['limit']
-		);
-
-		$results = $this->model_catalog_product->getProducts($filter_data);
-
-		if ($results) {
+		if ( $results = $this->model_catalog_product->getLatestProducts($setting['limit']) ) {
 			foreach ($results as $result) {
 				if ($result['image']) {
 					$image = $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height']);
